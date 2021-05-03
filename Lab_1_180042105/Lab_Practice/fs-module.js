@@ -38,23 +38,23 @@ const fs = require("fs");
 //         });
 
 
-console.log("Before");
-fs.readFile("./contents/RenamedFile.txt", "utf-8", (err, data) => {
-    if (err) {
-        console.log(err);
-    } else {
-        fs.appendFile("./contents/RenamedFile.txt", "Is this a Synchronous Process?", (err) => {
-        });
-        fs.readFile("./contents/RenamedFile.txt", "utf-8", (err, data) => {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(data);
-            }
-        })
-    }
-});
-console.log("After");
+// console.log("Before");
+// fs.readFile("./contents/RenamedFile.txt", "utf-8", (err, data) => {
+//     if (err) {
+//         console.log(err);
+//     } else {
+//         fs.appendFile("./contents/RenamedFile.txt", "Is this a Synchronous Process?", (err) => {
+//         });
+//         fs.readFile("./contents/RenamedFile.txt", "utf-8", (err, data) => {
+//             if (err) {
+//                 console.log(err);
+//             } else {
+//                 console.log(data);
+//             }
+//         })
+//     }
+// });
+// console.log("After");
 
 fs.unlink("./contents/RenamedFile.txt", (err) => {
     if (!err) console.log("Deleted Successfully.");
