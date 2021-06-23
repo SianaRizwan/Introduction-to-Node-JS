@@ -77,7 +77,8 @@ const getRegister = (req, res) => {
   };
   
   const getDashboard = (req, res) => {
-    res.send("Login Successful");
+    // res.send("Login Successful");
+    console.log("Logged in")
   };
   
   module.exports = { getRegister, postRegister, getLogin, postLogin, getDashboard };

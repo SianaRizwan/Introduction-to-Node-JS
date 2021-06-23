@@ -16,7 +16,7 @@ router.use(bodyParser.json());
 
 router.route("/login").get(getLogin).post(postLogin);
 
-router.get("/dashboard", getDashboard);
+router.route("/dashboard").all(isLoggedIn).get(getDashboard);
 
 router.route("/register").get(getRegister).post(postRegister);
 
