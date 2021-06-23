@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const userRoutes = require("./routes/userRoutes.routes");
-const morgan = require("morgan");
 const { urlencoded } = require('body-parser');
 
 app.use(userRoutes);
@@ -13,7 +12,7 @@ app.get("/", (req,res)=>{
 });
 
 app.use((req,res)=>{
-    res.status(301).send("Page doesn't exist");
+    res.status(404).send("Page doesn't exist");
     });
 
 module.exports = app;
