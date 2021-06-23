@@ -54,6 +54,7 @@ const getRegister = (req, res) => {
   const getLogin = (req, res) => {
     res.sendFile("login.html", { root: "./views/users" });
   };
+  
 
   const postLogin = async (req, res) => {
     const email = req.body.email;

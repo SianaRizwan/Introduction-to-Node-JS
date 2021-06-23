@@ -14,7 +14,7 @@ const {
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
-router.get("/login", getLogin);
+router.route("/login").get(getLogin).post(postLogin);
 
 router.get("/dashboard", getDashboard);
 
