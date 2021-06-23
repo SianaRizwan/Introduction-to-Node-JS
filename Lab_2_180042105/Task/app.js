@@ -5,6 +5,7 @@ const { urlencoded } = require('body-parser');
 
 app.use(userRoutes);
 app.use(express.json());
+app.use(express.static("public"));
 app.use(urlencoded({extended:false}));
 
 app.get("/", (req,res)=>{

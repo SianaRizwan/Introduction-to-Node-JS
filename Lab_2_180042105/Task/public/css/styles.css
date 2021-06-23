@@ -1,0 +1,24 @@
+h1 {
+    text-align: center;
+    color: #53e753;
+  }
+
+body{
+    align-content: center;
+    padding: 10px;
+    margin: 15px;
+
+}
+.center {
+    border: 5px solid #000000;
+    padding: 10px;
+    text-align: center;
+    justify-content: center;
+    }
+
+a{
+
+    font: 1em sans-serif;
+    align-items: center;
+    color: deeppink;
+}
