@@ -7,14 +7,13 @@ const alert = require("alert");
 
 
 const getRegister = (req, res) => {
-    res.sendFile("register.html", { root: "./views/users" });
+    res.sendFile("register.html", { root: "./views/pages/examples" });
   };
 
 
   const postRegister = async (req, res) => {
   const username = req.body.username;
   const email = req.body.email;
-  const gender = req.body.gender;
   const password = req.body.password;
   const retypePassword = req.body.retype_password;
    if(password === retypePassword ){
@@ -34,7 +33,6 @@ const getRegister = (req, res) => {
                 User = new user({
                     username,
                     email,
-                    gender,
                     passwordHash,
                   });
                   await User.save();
@@ -43,6 +41,7 @@ const getRegister = (req, res) => {
             }
            }
            catch(error){
+             console.error(error.message)
             alert("All the fields need to be filled in");
             res.redirect("/register");
            }
@@ -52,7 +51,7 @@ const getRegister = (req, res) => {
   };
   
   const getLogin = (req, res) => {
-    res.sendFile("login.html", { root: "./views/users" });
+    res.sendFile("login.html", { root: "./views/pages/examples" });
   };
   
 

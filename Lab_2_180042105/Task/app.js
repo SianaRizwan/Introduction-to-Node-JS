@@ -9,7 +9,7 @@ app.use(express.static("public"));
 app.use(urlencoded({extended:false}));
 
 app.get("/", (req,res)=>{
-    res.sendFile("home.html", {root: "./views"});
+    res.sendFile("index2.html", {root: "./views"});
 });
 
 app.use((req,res)=>{

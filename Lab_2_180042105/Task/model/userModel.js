@@ -10,10 +10,6 @@ const UserSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  gender: {
-    type: String,
-    required: true,
-  },
   passwordHash: {
     type: String,
     required: true,
