@@ -13,12 +13,6 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
-  <script>
-    const LocalStorage = require('node-localstorage').LocalStorage;
-    const localStorage = new LocalStorage('./scratch');
-    document.getElementById("profile-name").innerHTML = localStorage.getItem(username);
-    document.getElementById("profile-name").innerText = localStorage.getItem(username);
-  </script>
 
 </head>
 <!--
@@ -1150,5 +1144,11 @@
 <script src="dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard3.js"></script>
+<script>
+  const LocalStorage = require('node-localstorage').LocalStorage;
+  const localStorage = new LocalStorage('./scratch');
+  document.getElementById("profile-name").innerHTML = localStorage.getItem(username);
+  document.getElementById("profile-name").innerText = localStorage.getItem(username);
+</script>
 </body>
 </html>
