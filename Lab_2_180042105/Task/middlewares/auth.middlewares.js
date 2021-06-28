@@ -7,7 +7,9 @@ const isLoggedIn = (req,res,next) => {
     const user = localStorage.getItem("username")
     
     if (user){
-        res.send(`<H3>Welcome ${user}</H3>`);
+        //res.send(`<H3>Welcome ${user}</H3>`);
+        res.sendFile("index3.html", {root: "./views"});
+        //res.send(document.getElementById('info') = `Welcome ${user}`);
         next();
     }else {
         alert('Please log in first');
