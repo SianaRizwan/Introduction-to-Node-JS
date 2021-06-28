@@ -8,6 +8,7 @@ const isLoggedIn = (req,res,next) => {
     
     if (user){
         //res.send(`<H3>Welcome ${user}</H3>`);
+        alert(`Welcome ${user}`)
         res.sendFile("index3.html", {root: "./views"});
         //res.send(document.getElementById('info') = `Welcome ${user}`);
         next();
