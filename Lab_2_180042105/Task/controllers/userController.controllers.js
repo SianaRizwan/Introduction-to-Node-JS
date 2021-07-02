@@ -48,6 +48,10 @@ const getRegister = (req, res) => {
 
        }
    }
+   else{
+     alert("Password fields doesn't match");
+     res.redirect("/register");
+   }
   };
   
   const getLogin = (req, res) => {
@@ -72,7 +76,7 @@ const getRegister = (req, res) => {
         alert("No account exists!");
         res.redirect("/register");
       }
-
+      
   };
   
   const getDashboard = (req, res) => {
