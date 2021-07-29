@@ -15,6 +15,13 @@
           </div>
           <div class="x_content">
             <br />
+
+             <%if(error.length>0){if(error=="Participant has been registered successfully"){%>
+            <div class= "alert alert-success"><%=error%></div>
+             <%}else{%>
+            <div class="alert alert-danger"><%=error%></div>
+          <%}%> <%}%>
+
             <form method="POST" action="/MathOlympiad/register"  id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 
               <div class="item form-group">
