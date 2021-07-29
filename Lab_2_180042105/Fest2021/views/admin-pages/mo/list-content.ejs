@@ -12,7 +12,7 @@
       <div class="x_content">
         <br/>
 
-        <%if(error.length>0){if(error=="Data has been deleted successfully"||"Payment completed"){%>
+        <%if(error.length>0){if(error=="Data has been deleted successfully"||"Payment completed"||"Participant has been selected"){%>
           <div class= "alert alert-success"><%=error%></div>
            <%}else{%>
           <div class="alert alert-danger"><%=error%></div>
@@ -52,20 +52,34 @@
                   <td><%= participant.tshirt %></td>
                   <td><%= participant.total %></td>
                   <td><%= participant.paid %></td>
-                  <td><%= participant.selected %></td>
+                  <td>
+                    <% if(participant.selected==true){%>
+                      <p style="color: green;">YES</p> <%}else{%>
+                        <p style="color: red;">NO</p>
+                      <%}%>
+                  </td>
                   <td><% if(participant.paid==participant.total){%>
                     <p style="color: green;">Successfull</p> <%}else{%>
                       <p style="color: red;">Incomplete</p>
                     <%}%>
                   </td>
-                  <td>Select</td>
+                 <td>
+                  <% const selectURL = 'select/' + participant._id %>
+                  <a href="<%= selectURL %>"
+                    ><i class="fa fa-check"></i>
+                  <span class="fa fa-chevron"></span></a>
+                 </td>
                   <td>
                     <% const paymentDoneURL = 'paymentDone/' + participant._id %>
                     <a href="<%= paymentDoneURL %>"
                       ><i class="fa fa-money"></i>
                     <span class="fa fa-chevron"></span></a>
                   </td>
-                  <td>Edit</td>
+                  <td>  
+                    <% const editURL = 'edit/' + participant._id %>
+                    <a href="<%= editURL %>"
+                      ><i class="fa fa-pencil"></i>
+                    <span class="fa fa-chevron"></span></a></td>
                   <td>
                     <% const deleteURL = 'delete/' + participant._id %>
                     <a href="<%= deleteURL %>"

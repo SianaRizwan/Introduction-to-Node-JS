@@ -127,4 +127,25 @@ const paymentDoneMO=(req,res)=>{
     })
 }
 
-module.exports = {getMO,postMO,getMOList,deleteMO, paymentDoneMO}
+
+const selectMO =(req,res)=>{
+    const id = req.params.id;
+    let error = ''
+    MathOlympiad.findOne({_id:id}).then((participant)=>{
+        participant.selected=true;
+        participant.save().then(()=>{
+            error = "Participant has been selected"
+            req.flash('error',error)
+            res.redirect('/MathOlympiad/list')
+        }).catch(()=>{
+            error = "Failed to update data"
+            req.flash('error',error)
+            res.redirect('/MathOlympiad/list')
+        })
+    }).catch(()=>{
+                    error = "Unexpected error occured"
+                    req.flash('error',error)
+                    res.redirect('/MathOlympiad/list')
+    })
+}
+module.exports = {getMO,postMO,getMOList,deleteMO, paymentDoneMO,selectMO}
