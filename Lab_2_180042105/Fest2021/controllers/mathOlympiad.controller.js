@@ -1,7 +1,7 @@
 const MathOlympiad = require('../models/mathOlympiad.model');
 
 const getMO = (req,res) =>{
-    res.render('math-olympiad/register.ejs')
+    res.render('math-olympiad/register.ejs',{error:req.flash("error")})
 }
 
 const postMO = (req,res) =>{
@@ -12,16 +12,119 @@ const postMO = (req,res) =>{
     console.log(email)
     console.log(institution)
     console.log(tshirt)
-    res.render('math-olympiad/register.ejs')
+    let registrationFee = 0;
+    if(category=='School'){
+        registrationFee= 250;
+    } else if(category=='College'){
+        registrationFee=400;
+    } else {
+        registrationFee=500;
+    }
+
+    const total=registrationFee;
+    const paid = 0;
+    const selected = false;
+
+    let error = "";
+    MathOlympiad.findOne({name:name,contact:contact}).then((participant)=>{
+        if(participant){
+            error = "Participant with this name and contact number already exists!"
+            req.flash("error",error);
+            res.redirect('/MathOlympiad/register');
+        } else{
+            const participant = new MathOlympiad({
+                name,
+                category,
+                contact,
+                email,
+                institution,
+                paid,
+                total,
+                selected,
+                tshirt
+            });
+            participant.save().then(()=>{
+                error = "Participant has been registered successfully";
+                req.flash("error",error)
+                res.redirect('/MathOlympiad/register');
+            }).catch(()=>{
+                error = "An unexpected error has occured! Please try again";
+                req.flash("error",error)
+                res.redirect('/MathOlympiad/register');
+            }) 
+        }
+    })
+    
 } 
 const getMOList = (req,res) =>{
-    res.render('math-olympiad/list.ejs')
+    let all_participant = []
+    let error = ''
+    MathOlympiad.find().then((data)=>{
+        all_participant = data;
+        res.render('math-olympiad/list.ejs',{
+            error:req.flash('error'),
+            participants:all_participant,
+        })
+    }).catch(()=>{
+            error="Failed to fetch data!"
+            res.render('math-olympiad/list.ejs',{
+                error:req.flash('error',error),
+                participants:all_participant,
+            })
+    })
+  
 }
 
 const deleteMO = (req,res)=>{
     const id = req.params.id;
-    console.log(id);
-    res.render('math-olympiad/list.ejs')
+    let error = ''
+    MathOlympiad.deleteOne({_id:id},(err)=>{
+        if(err){
+            error = "Failed to delete data"
+            req.flash('error',error)
+            res.redirect('/MathOlympiad/list')
+        }else{
+            error = "Data has been deleted successfully"
+            req.flash('error',error)
+            res.redirect('/MathOlympiad/list')
+        }
+    })
+    
 }
 
-module.exports = {getMO,postMO,getMOList,deleteMO}
+const paymentDoneMO=(req,res)=>{
+    const id = req.params.id;
+    let error = ''
+    MathOlympiad.findOne({_id:id}).then((participant)=>{
+        //--It was woking thought for me--//
+        // const total = participant.total
+        // MathOlympiad.findByIdAndUpdate({_id:id},{paid:total},(err)=>{
+        //         if(err){
+        //             error = "Failed to update data"
+        //             req.flash('error',error)
+        //             res.redirect('/MathOlympiad/list')
+        //         }else{
+        //             error = "Payment completed"
+        //             req.flash('error',error)
+        //             res.redirect('/MathOlympiad/list')
+        //         }
+        // })
+       
+        participant.paid=participant.total;
+        participant.save().then(()=>{
+            error = "Payment completed"
+            req.flash('error',error)
+            res.redirect('/MathOlympiad/list')
+        }).catch(()=>{
+            error = "Failed to update data"
+            req.flash('error',error)
+            res.redirect('/MathOlympiad/list')
+        })
+    }).catch(()=>{
+                    error = "Unexpected error occured"
+                    req.flash('error',error)
+                    res.redirect('/MathOlympiad/list')
+    })
+}
+
+module.exports = {getMO,postMO,getMOList,deleteMO, paymentDoneMO}
