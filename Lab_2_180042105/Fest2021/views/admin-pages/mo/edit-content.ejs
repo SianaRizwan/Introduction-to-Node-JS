@@ -28,7 +28,7 @@
                   <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Name: <span class="required">*</span>
                   </label>
                   <div class="col-md-6 col-sm-6 ">
-                    <input type="text" id="name" name="name" required="required" class="form-control ">
+                    <input type="text" id="name" name="name" required="required"  value="<%=participant.name%>" class="form-control ">
                   </div>
                 </div>
   
@@ -36,7 +36,7 @@
                   <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Contact Number:  <span class="required">*</span>
                   </label>
                   <div class="col-md-6 col-sm-6 ">
-                    <input type="text" id="contact" name="contact" required="required" class="form-control ">
+                    <input type="text" id="contact" name="contact" required="required" value="<%=participant.contact%>" class="form-control ">
                   </div>
                 </div>
   
@@ -44,7 +44,7 @@
                   <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">E-mail: 
                   </label>
                   <div class="col-md-6 col-sm-6 ">
-                    <input type="email" id="email" name="email" class="form-control ">
+                    <input type="email" id="email" name="email"   value="<%=participant.email%>" class="form-control ">
                   </div>
                 </div>
   
@@ -52,7 +52,7 @@
                   <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Institution:  <span class="required">*</span>
                   </label>
                   <div class="col-md-6 col-sm-6 ">
-                    <input type="text" id="institution" name="institution" required="required" class="form-control ">
+                    <input type="text" id="institution" name="institution" required="required"  value="<%=participant.institution%>" class="form-control ">
                   </div>
                 </div>
   
@@ -61,7 +61,7 @@
                   </label>
                   <div class="col-md-6 col-sm-6 ">
                     <select class="form-control" id="category" name="category">
-                      <option disabled>--- Choose option ---</option>
+                      <option value="<%=participant.category%>"><%=participant.category%></option>
                       <option value="School">School</option>
                       <option value="College">College</option>
                       <option value="University">University</option>
@@ -74,7 +74,7 @@
                   </label>
                   <div class="col-md-6 col-sm-6 ">
                     <select class="form-control" id="tshirt" name="tshirt">
-                      <option disabled>--- Choose option ---</option>
+                      <option value="<%=participant.tshirt%>"><%=participant.tshirt%></option>
                       <option value="M">Medium</option>
                       <option value="L">Large</option>
                       <option value="XL">Extra Large</option>
