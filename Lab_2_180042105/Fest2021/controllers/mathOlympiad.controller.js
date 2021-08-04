@@ -148,4 +148,39 @@ const selectMO =(req,res)=>{
                     res.redirect('/MathOlympiad/list')
     })
 }
-module.exports = {getMO,postMO,getMOList,deleteMO, paymentDoneMO,selectMO}
+
+const getEditMO=(req,res)=>{
+    const id = req.params.id;
+    let info = [];
+    let error = ''
+    MathOlympiad.findOne({ _id: id })
+      .then((data) => {
+        info = data;
+        res.render("math-olympiad/edit.ejs", {
+          error:req.flash('error'),
+          participant: info,
+        });
+      })
+      .catch((e) => {
+        error = "Failed to fetch data";
+        res.render("math-olympiad/edit.ejs", {
+          error: req.flash("error", error),
+          participant: info,
+        });
+      });
+}
+
+const postEditMO= async (req,res)=>{
+    const { name, contact, category, email, institution, tshirt } = req.body;
+    let error = ''
+    const data = await MathOlympiad.findOneAndUpdate(
+      { name: name,contact:contact },
+      { category, email, institution, tshirt }
+    );
+    if (data) {
+        error="Participant data has been edited successfully";
+        req.flash('error',error)
+        res.redirect('/MathOlympiad/list')
+    }
+}
+module.exports = {getMO,postMO,getMOList,deleteMO, paymentDoneMO,selectMO,getEditMO,postEditMO,}
