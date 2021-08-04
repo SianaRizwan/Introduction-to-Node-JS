@@ -8,10 +8,6 @@ const PCSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  category: {
-    type: String,
-    required: true,
-  },
   total: {
     type: Number,
     required: true,
