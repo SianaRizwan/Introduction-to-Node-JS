@@ -1,4 +1,6 @@
 const MathOlympiad = require('../models/mathOlympiad.model');
+const sendMail=require('../utils/send_mail')
+const randNumber=require('../utils/id_generator')
 
 const getMO = (req,res) =>{
     res.render('math-olympiad/register.ejs',{error:req.flash("error")})
@@ -43,6 +45,22 @@ const postMO = (req,res) =>{
                 selected,
                 tshirt
             });
+            participant.save().then((val)=>{
+                let uniqueID = val._id;
+                MathOlympiad.findOneAndUpdate(
+                  { _id: uniqueID },
+                  { $set: { mailId: randNumber(uniqueID) } }
+                ).then(()=>
+                {
+                 error = "Participant has been registered successfully";
+                 req.flash("error",error)
+                 sendMail(email, "Math Olympiad", name, uniqueID);
+                 res.redirect('/MathOlympiad/register');
+                }).catch((err) => {
+                  console.log("mo-register", err);
+                });
+
+
             }).catch(()=>{
                 error = "An unexpected error has occured! Please try again";
                 req.flash("error",error)
@@ -168,10 +186,19 @@ const getEditMO=(req,res)=>{
 
 const postEditMO= async (req,res)=>{
     const { name, contact, category, email, institution, tshirt } = req.body;
+    let registrationFee = 0;
+    if(category=='School'){
+        registrationFee= 250;
+    } else if(category=='College'){
+        registrationFee=400;
+    } else {
+        registrationFee=500;
+    }
+    const total=registrationFee;
     let error = ''
     const data = await MathOlympiad.findOneAndUpdate(
       { name: name,contact:contact },
-      { category, email, institution, tshirt }
+      { category, email, institution, tshirt, total }
     );
     if (data) {
         error="Participant data has been edited successfully";
