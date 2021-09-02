@@ -33,6 +33,7 @@
                   <thead>
                     <tr>
                       <!-- <th>ID</th> -->
+                      <th>Team ID</th>
                       <th>Team Name</th>
                       <th>Institute</th>
                       <th>Coach <br />Information</th>
@@ -53,6 +54,7 @@
                     <%if(participants.length>0){
                     participants.forEach(participant=>{%>
                     <tr>
+                      <td><%=participant.mailId%></td>
                       <td><%=participant.teamName%></td>
                       <td><%=participant.institute%></td>
                       <td>
