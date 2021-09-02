@@ -43,10 +43,6 @@ const postMO = (req,res) =>{
                 selected,
                 tshirt
             });
-            participant.save().then(()=>{
-                error = "Participant has been registered successfully";
-                req.flash("error",error)
-                res.redirect('/MathOlympiad/register');
             }).catch(()=>{
                 error = "An unexpected error has occured! Please try again";
                 req.flash("error",error)
