@@ -92,6 +92,10 @@ const PCSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  mailId: {
+    type:String,
+    unique:true,
+    },
 })
 
 const ProgContest = mongoose.model("programming-contest", PCSchema);
