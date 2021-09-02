@@ -1,4 +1,8 @@
 const ProgContest = require("../models/programmingContest.model");
+const sendMail=require('../utils/send_mail')
+const randNumber=require('../utils/id_generator')
+
+
 const getPC = (req, res) => {
   res.render("programming-contest/register.ejs", { error: req.flash("error") });
 };
@@ -63,10 +67,23 @@ const postPC = (req, res) => {
         });
         participant
           .save()
-          .then(() => {
-            error = "Team has been registered successfully!";
-            req.flash("error", error);
-            res.redirect("/ProgrammingContest/register");
+          .then((val) => {
+            let uniqueID = val._id;
+            ProgContest.findOneAndUpdate(
+              { _id: uniqueID },
+              { $set: { mailId: randNumber(uniqueID) } }
+            ).then(()=>
+            {
+              error = "Team has been registered successfully!";
+              req.flash("error", error);
+              sendMail(coachEmail,'Programming Contest', `${coachName} from Team ${teamName}`,uniqueID)
+              sendMail(tleadEmail,'Programming Contest', `${tleadName} from Team ${teamName}`,uniqueID)
+              sendMail(tm1Email,'Programming Contest', `${tm1Name} from Team ${teamName}`,uniqueID)
+              sendMail(tm2Email,'Programming Contest', `${tm2Name} from Team ${teamName}`,uniqueID)
+              res.redirect("/ProgrammingContest/register");
+            }).catch((err) => {
+              console.log("prog-register", err);
+            });
           })
           .catch(() => {
             error = "An unexpected error has occured! Please try again";

@@ -12,7 +12,7 @@ const sendConfirmationMail = (receiver,eventName,name,mailId) => {
   let mailOptions = {
     to: receiver,
     subject: `Confirmation for ${eventName} event`,
-    html: `Congratulations ${name}! </br> Registration is successfull for ${eventName} Event. Your ID is : ${mailId} . </br> Thanks for registering`,
+    html: `Hello ${name}! </br> Your registration is successfull for ${eventName} Event. Your ID is : ${mailId} . </br> Thanks for registering`,
   };
   transporter.sendMail(mailOptions, function (error) {
     if (error) {
